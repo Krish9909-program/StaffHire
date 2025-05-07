@@ -1,0 +1,330 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+public class StaffHireGUII implements ActionListener {
+    private JFrame frame;
+    private JTextField vacancyNumberField;
+    private JTextField designationField;
+    private JTextField jobTypeField;
+    private JTextField joiningDateField;
+    private JTextField staffNameField;
+    private JTextField appointedByField;
+    private JTextField qualificationField;
+    private JTextField salaryField;
+    private JTextField weeklyFractionalHoursField;
+    private JTextField weekdaysField;
+    private JTextField shiftsField;
+    private JCheckBox joinedCheckBox;
+    
+    private JButton addFulltimeStaffButton;
+    private JButton addPartTimeStaffButton;
+    private JButton addTerminateButton;
+    private JButton clearButton;
+    private JButton setSalaryButton;
+    private JButton displayNumberButton1;
+    private JButton addWorkingShiftsButton;
+
+
+    private Database database;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == addFulltimeStaffButton) {
+            addFullTimeStaff();
+        }
+        else if(e.getSource() == addPartTimeStaffButton) {
+            addPartTimeStaff();
+        }
+        else if (e.getSource() == addTerminateButton) {
+            addTerminate();
+        }
+        else if (e.getSource() == clearButton) {
+            clearFields();
+        }
+        else if (e.getSource() == setSalaryButton){
+            setSalaryForFullTimeStaff();
+        }
+        else if (e.getSource() == displayNumberButton1){
+            displayStaffByVacancyNumber();
+        }
+        if (e.getSource() == addWorkingShiftsButton) {
+           setWorkingShifts();
+        }
+            
+        }
+    public StaffHireGUII() {
+        database = new Database();
+
+        frame = new JFrame("StaffHire");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 600);
+        frame.setLayout(new GridLayout(12, 2, 10, 10)); // Adjusted for spacing
+
+        frame.add(new JLabel("Vacancy:"));
+        vacancyNumberField = new JTextField();
+        frame.add(vacancyNumberField);
+
+        frame.add(new JLabel("Designation:"));
+        designationField = new JTextField();
+        frame.add(designationField);
+
+        frame.add(new JLabel("Job Type:"));
+        jobTypeField = new JTextField();
+        frame.add(jobTypeField);
+
+        frame.add(new JLabel("Joining Date:"));
+        joiningDateField = new JTextField();
+        frame.add(joiningDateField);
+
+        frame.add(new JLabel("Staff Name:"));
+        staffNameField = new JTextField();
+        frame.add(staffNameField);
+
+        frame.add(new JLabel("Appointed By:"));
+        appointedByField = new JTextField();
+        frame.add(appointedByField);
+
+        frame.add(new JLabel("Qualification:"));
+        qualificationField = new JTextField();
+        frame.add(qualificationField);
+
+        frame.add(new JLabel("Salary:"));
+        salaryField = new JTextField();
+        frame.add(salaryField);
+
+        frame.add(new JLabel("Joined:"));
+        joinedCheckBox = new JCheckBox();
+        frame.add(joinedCheckBox);
+
+        frame.add(new JLabel("Weekly Fractional Hours:"));
+        weeklyFractionalHoursField = new JTextField();
+        frame.add(weeklyFractionalHoursField);
+
+        frame.add(new JLabel("Weekdays:"));
+        weekdaysField = new JTextField();
+        frame.add(weekdaysField);
+
+        frame.add(new JLabel("Shifts:"));
+        shiftsField = new JTextField();
+        frame.add(shiftsField);
+
+        addFulltimeStaffButton = new JButton("Add Fulltime Staff");
+        frame.add(addFulltimeStaffButton);
+        addFulltimeStaffButton.addActionListener(this);
+
+        addPartTimeStaffButton = new JButton("Add Parttime Staff");
+        frame.add(addPartTimeStaffButton);
+        addPartTimeStaffButton.addActionListener(this);
+     
+        addTerminateButton = new JButton("Terminate");
+        frame.add(addTerminateButton);
+        addTerminateButton.addActionListener(this);
+        
+        clearButton = new JButton("Clear");
+        frame.add(clearButton);
+        clearButton.addActionListener(this);
+        
+        setSalaryButton = new JButton("Set Salary");
+        frame.add(setSalaryButton);
+        setSalaryButton.addActionListener(this);
+        
+        addWorkingShiftsButton = new JButton("Set Working Shifts");
+        frame.add(addWorkingShiftsButton);
+        addWorkingShiftsButton.addActionListener(this); 
+
+   
+
+        //JButton addWorkingShiftsButton = new JButton("Add Working Shifts");
+        //frame.add(addWorkingShiftsButton);
+        displayNumberButton1 = new JButton("Display Number");
+        frame.add(displayNumberButton1);
+        displayNumberButton1.addActionListener(this);
+
+
+        frame.setVisible(true);     
+        
+        
+        database.getAllStaff();
+        }
+        public void addFullTimeStaff() {
+    try {
+        int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+        String designation = designationField.getText();
+        String jobType = jobTypeField.getText();
+        String staffName = staffNameField.getText();
+        String joiningDate = joiningDateField.getText();
+        String qualification = qualificationField.getText();
+        String appointedBy = appointedByField.getText();
+        boolean joined = joinedCheckBox.isSelected();
+        double salary = Double.parseDouble(salaryField.getText());
+        double weeklyFractionalHours = Double.parseDouble(weeklyFractionalHoursField.getText());
+
+        FullTimeHire fullTimeStaff = new FullTimeHire(
+            vacancyNumber, designation, jobType, staffName,
+            joiningDate, qualification, appointedBy, joined,
+            salary, weeklyFractionalHours
+        );
+
+        database.addItem(fullTimeStaff);
+        fullTimeStaff.print();
+        JOptionPane.showMessageDialog(null, "Full-Time staff added successfully!");
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(frame, "Please enter valid numbers for vacancy, salary, and hours.");
+    }
+}
+
+                public void addPartTimeStaff() {
+    try {
+        int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+        String designation = designationField.getText();
+        String jobType = jobTypeField.getText();
+        String staffName = staffNameField.getText();
+        String joiningDate = joiningDateField.getText();
+        String qualification = qualificationField.getText();
+        String appointedBy = appointedByField.getText();
+        boolean joined = joinedCheckBox.isSelected();
+        double workingHour = Double.parseDouble(weeklyFractionalHoursField.getText());
+        double wagesPerHour = Double.parseDouble(salaryField.getText());
+        String shifts = shiftsField.getText();
+        boolean terminated = false; // default when adding new
+
+        // Create PartTimeHire object
+        PartTimeStaffHire partTimeStaff = new PartTimeStaffHire(
+            vacancyNumber, designation, jobType, staffName, joiningDate,
+            qualification, appointedBy, joined,
+            workingHour, wagesPerHour, shifts, terminated
+        );
+
+        database.addItem(partTimeStaff);
+        partTimeStaff.print();
+        JOptionPane.showMessageDialog(null, "Part-Time staff added successfully!");
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Please enter valid numbers for vacancy, hours, or wages.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+            
+            public void addTerminate() {
+            int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+                StaffHire staffHire = new StaffHire(vacancyNumber);
+                staffHire.setDesignation(designationField.getText());
+                staffHire.setJobType(jobTypeField.getText());
+                staffHire.setStaffName(staffNameField.getText());
+                staffHire.setJoiningDate(joiningDateField.getText());
+                staffHire.setQualification(qualificationField.getText());
+                staffHire.setAppointedBy(appointedByField.getText());
+                staffHire.setJoined(joinedCheckBox.isSelected());
+
+
+                database.addItem(staffHire);
+                
+                staffHire.print();
+                JOptionPane.showMessageDialog(null, "PartTime user terminated successfully!");
+
+
+        }
+        public void clearFields() {
+        vacancyNumberField.setText("");
+        designationField.setText("");
+        jobTypeField.setText("");
+        joiningDateField.setText("");
+        staffNameField.setText("");
+        appointedByField.setText("");
+        qualificationField.setText("");
+        salaryField.setText("");
+        weeklyFractionalHoursField.setText("");
+        weekdaysField.setText("");
+        shiftsField.setText("");
+        joinedCheckBox.setSelected(false);
+        }
+   public void setSalaryForFullTimeStaff() {
+    try {
+        int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+        double salary = Double.parseDouble(salaryField.getText());
+
+        StaffHire staff = database.findStaffByVacancyNumber(vacancyNumber);
+
+        if (staff instanceof FullTimeHire) {
+            FullTimeHire fullTime = (FullTimeHire) staff;
+            if (!fullTime.getJoined()) {
+                fullTime.setSalary(salary);
+                JOptionPane.showMessageDialog(frame, "Salary updated.");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Staff has already joined. Cannot update salary.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "Vacancy not for a full-time staff.");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(frame, "Please enter valid numbers.");
+    }
+}
+     
+
+public void displayStaffByVacancyNumber() {
+    try {
+        int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+        StaffHire staff = database.findStaffByVacancyNumber(vacancyNumber);
+
+        if (staff == null) {
+            JOptionPane.showMessageDialog(frame, "No staff found with Vacancy Number: " + vacancyNumber);
+            return;
+        }
+
+        StringBuilder info = new StringBuilder();
+        info.append("Vacancy Number: ").append(staff.getVacancyNumber()).append("\n");
+        info.append("Designation: ").append(staff.getDesignation()).append("\n");
+        info.append("Job Type: ").append(staff.getJobType()).append("\n");
+        info.append("Staff Name: ").append(staff.getStaffName()).append("\n");
+        info.append("Joining Date: ").append(staff.getJoiningDate()).append("\n");
+        info.append("Qualification: ").append(staff.getQualification()).append("\n");
+        info.append("Appointed By: ").append(staff.getAppointedBy()).append("\n");
+        info.append("Joined: ").append(staff.getJoined() ? "Yes" : "No").append("\n");
+
+        if (staff instanceof FullTimeHire) {
+            FullTimeHire f = (FullTimeHire) staff;
+            info.append("Salary: ").append(f.getSalary()).append("\n");
+        } else if (staff instanceof PartTimeStaffHire) {
+            PartTimeStaffHire p = (PartTimeStaffHire) staff;
+            info.append("Wages Per Hour: ").append(p.getWagesPerHour()).append("\n");
+            info.append("Working Hour: ").append(p.getWorkingHour()).append("\n");
+            info.append("Shifts: ").append(p.getShifts()).append("\n");
+                    }
+
+        JOptionPane.showMessageDialog(frame, info.toString(), "Staff Details", JOptionPane.INFORMATION_MESSAGE);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(frame, "Please enter a valid vacancy number.");
+    }
+}
+
+public void setWorkingShifts() {
+    try {
+        int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+        String newShifts = shiftsField.getText();
+
+        StaffHire staff = database.findStaffByVacancyNumber(vacancyNumber);
+
+        if (staff instanceof PartTimeStaffHire) {
+            PartTimeStaffHire partTime = (PartTimeStaffHire) staff;
+            if (partTime.getJoined()) {
+                partTime.setShifts(newShifts);
+                JOptionPane.showMessageDialog(frame, "Shift updated.");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Staff has not joined yet.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "Vacancy not for a part-time staff.");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(frame, "Invalid vacancy number.");
+    }
+}
+
+
+    }
+
+    
