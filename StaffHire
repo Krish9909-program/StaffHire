@@ -1,0 +1,153 @@
+
+/**
+ * Write a description of class StaffHire here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class StaffHire 
+{
+    private int VacancyNumber;// Assign Vacancy Number to The Staff
+    private String Designation; // Provides which role is the staff selected for
+    private String JobType;// Job type For which Staff was hired for
+    private String StaffName; // StaffName
+    private String JoiningDate; // provides Date when StaffJoined
+    private String Qualification;// Education level achieved by staff
+    private String AppointedBy;// Input Name of the managemnt employee who hired the staff
+    private boolean Joined;// returns if the staff joined or not
+    
+    /**
+     * 
+     */
+    public StaffHire(int VacancyNumber)
+    {
+        this.VacancyNumber= VacancyNumber;
+        
+    }
+    /**
+     * 
+     */
+    public int getVacancyNumber()
+    {
+        return VacancyNumber;
+    }
+    /**
+     * 
+     */
+    public void setVacancyNumber(int VacancyNumber)
+    {
+        this.VacancyNumber= VacancyNumber;
+    }
+    /**
+     * 
+     */
+    public String getDesignation()
+    {
+       return Designation; 
+    }
+    /**
+     * 
+     */
+    public void setDesignation(String Designation)
+    {
+        this.Designation= Designation;
+    }
+    /**
+     * 
+     */
+    public String getJobType()
+    {
+       return JobType; 
+    }
+    /**
+     * 
+     */
+    public void setJobType(String JobType)
+    {
+        this.JobType= JobType;
+    }
+    /**
+     * 
+     */
+    public String getStaffName()
+    {
+       return StaffName; 
+    }
+    /**
+     * 
+     */
+    public void setStaffName(String StaffName)
+    {
+        this.StaffName= StaffName;
+    }
+    /**
+     * 
+     */
+    public String getJoiningDate()
+    {
+       return JoiningDate; 
+    }
+    /**
+     * 
+     */
+    public void setJoiningDate(String JoiningDate)
+    {
+        this.JoiningDate= JoiningDate;
+    }
+    /**
+     * 
+     */
+    public String getQualification()
+    {
+       return Qualification; 
+    }
+    /**
+     * 
+     */
+    public void setQualification(String Qualification)
+    {
+        this.Qualification= Qualification;
+    }
+    /**
+     * 
+     */
+    public String getAppointedBy()
+    {
+       return AppointedBy; 
+    }
+    /**
+     * 
+     */
+    public void setAppointedBy(String AppointedBy)
+    {
+        this.AppointedBy= AppointedBy;
+    }
+    /**
+     * 
+     */
+    public boolean getJoined()
+    {
+       return Joined; 
+    }
+    /**
+     * 
+     */
+    public void setJoined(boolean Joined)
+    {
+        this.Joined= Joined;
+    }
+    /**
+     * 
+     */
+    public void print()
+    {
+        System.out.println("VacancyNumber:" + VacancyNumber);
+        System.out.println("Designation:" + Designation);
+        System.out.println("JobType:" + JobType);
+        System.out.println("StaffName:" + StaffName);
+        System.out.println("JoiningDate:" + JoiningDate);
+        System.out.println("Qualification:" + Qualification);
+        System.out.println("AppointedBy:" + AppointedBy);
+        System.out.println("Joined:" + Joined);
+    }
+}
