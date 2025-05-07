@@ -1,0 +1,8 @@
+// Entry point to the application
+public class MainApp
+{
+    public static void main(String[] args)
+    {
+     StaffHireGUII gui = new StaffHireGUII();
+    }
+}
