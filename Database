@@ -1,0 +1,56 @@
+
+import java.util.ArrayList;
+public class Database
+{
+    
+    private ArrayList<StaffHire> Staffs;
+
+    /**
+     * Construct an empty Database.
+     */
+    public Database()
+    {
+        Staffs = new ArrayList<StaffHire>();
+    }
+
+    /**
+     * Add an item to the database.
+     * @param theItem The item to be added.
+     */
+    public boolean addItem(StaffHire newStaff) {
+    for (StaffHire staff : Staffs) {
+        if (staff.getVacancyNumber() == newStaff.getVacancyNumber()) {
+            return false; // Duplicate found
+        }
+    }
+    Staffs.add(newStaff);
+    return true;
+}
+public StaffHire findStaffByVacancyNumber(int vacancyNumber) {
+    for (StaffHire staff : Staffs) {
+        if (staff.getVacancyNumber() == vacancyNumber) {
+            return staff;
+        }
+    }
+    return null;
+}
+
+
+
+    /**
+     * Print a list of all currently stored items to the
+     * text terminal.
+     */
+    public void list()
+    {
+        for(StaffHire StaffHire: Staffs) {
+            StaffHire.print();
+            System.out.println();   // empty line between items
+        }
+    }
+    
+    public ArrayList<StaffHire> getAllStaff(){
+        return Staffs;
+    }
+    
+}
