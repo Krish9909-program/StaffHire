@@ -1,0 +1,63 @@
+
+/**
+ * Write a description of class FullTime here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class FullTimeHire extends StaffHire {
+    
+    private double Salary;
+    private double WeeklyFractionalHours;
+
+    
+    public FullTimeHire(int VacancyNumber, String Designation, String JobType, String StaffName, 
+                        String JoiningDate, String Qualification, String AppointedBy, boolean Joined, 
+                        double Salary, double WeeklyFractionalHours) {
+        super(VacancyNumber);
+        setDesignation(Designation);     
+        setJobType(JobType);
+        setStaffName(StaffName);
+        setJoiningDate(JoiningDate);
+        setQualification(Qualification);
+        setAppointedBy(AppointedBy);
+        setJoined(Joined);
+        
+        
+        this.Salary = Salary;
+        this.WeeklyFractionalHours = WeeklyFractionalHours;
+    }
+
+    
+    public double getSalary() {
+        return Salary;
+    }
+    
+    public void setSalary(double Salary) {
+    if (!getJoined()) {
+        this.Salary = Salary;
+    } else {
+        System.out.println("Cannot change salary. Staff has already joined.");
+    }
+}
+
+
+
+    
+    public double getWeeklyFractionalHours() {
+        return WeeklyFractionalHours;
+    }   
+
+    public void setWeeklyFractionalHours(double WeeklyFractionalHours) {
+        this.WeeklyFractionalHours = WeeklyFractionalHours;
+    }
+
+    
+    @Override
+    public void print() {
+        super.print();
+        System.out.println("Salary: " + Salary);
+        System.out.println("WeeklyFractionalHours: " + WeeklyFractionalHours);
+    }
+}
+
